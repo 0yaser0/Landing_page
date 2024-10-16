@@ -1521,8 +1521,6 @@ textarea.input-field {
    * HEADER
    */
 
-  .header { top: 51px; }
-
   .header.active { top: 0; }
 
   .header .btn {
