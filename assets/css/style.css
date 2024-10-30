@@ -1256,6 +1256,25 @@ textarea.input-field {
 
 .event .section-title { margin-block-end: 40px; }
 
+.slideshow-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.grid-list-slide {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.card-slide {
+  min-width: 300px; 
+  flex: 0 0 auto;
+}
+
+
 .event-card {
   position: relative;
   overflow: hidden;

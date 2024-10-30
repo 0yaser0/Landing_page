@@ -168,3 +168,80 @@ window.addEventListener("mousemove", function (event) {
   }
 
 });
+
+const gridList = document.querySelector('.grid-list');
+const scrollSpeed = 50;
+const scrollStep = 1;
+
+gridList.innerHTML += gridList.innerHTML;
+
+let scrollAmount = 0;
+
+function autoScroll() {
+  scrollAmount += scrollStep;
+  if (scrollAmount >= gridList.scrollWidth / 2) {
+    scrollAmount = 0;
+  }
+  gridList.style.transform = `translateX(-${scrollAmount}px)`;
+}
+
+setInterval(autoScroll, scrollSpeed);
+
+function createEventCard(imageSrc, date, subtitle, title) {
+  return `
+     <li>
+        <button onclick="_vs()">
+          <div class="event-card card-slide has-before hover:shine">
+              <div class="card-banner img-holder" style="--width: 350; --height: 450;">
+                  <img src="${imageSrc}" width="350" height="450" loading="lazy" alt="${title}" class="img-cover">
+                  <time class="publish-date label-2" datetime="${date}">${date}</time>
+              </div>
+              <div class="card-content">
+                  <p class="card-subtitle label-2 text-center">${subtitle}</p>
+                  <h3 class="card-title title-2 text-center">${title}</h3>
+              </div>
+          </div>
+        </button>
+      </li>
+  `;
+}
+
+// Appel 1
+gridList.innerHTML += createEventCard(
+  './assets/images/event-1.jpg',  // imageSrc
+  '2024-10-15',                  // date
+  'Intimate Dining',             // subtitle
+  'An unforgettable night of culinary indulgence.'  // title
+);
+
+// Appel 2
+gridList.innerHTML += createEventCard(
+  './assets/images/event-2.jpg',
+  '2024-11-20',
+  'Gourmet Night',
+  'A journey through exquisite flavors.'
+);
+
+// Appel 3
+gridList.innerHTML += createEventCard(
+  './assets/images/event-3.jpg',
+  '2024-12-05',
+  'Wine Tasting',
+  'Discover the art of fine wines.'
+);
+
+// Appel 4
+gridList.innerHTML += createEventCard(
+  './assets/images/event-4.jpg',
+  '2025-01-10',
+  'Art Exhibition',
+  'Explore the creativity of emerging artists.'
+);
+
+// Appel 5
+gridList.innerHTML += createEventCard(
+  './assets/images/event-5.jpg',
+  '2025-02-14',
+  'Valentine’s Special',
+  'Celebrate love with a romantic dinner.'
+);
