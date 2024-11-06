@@ -190,7 +190,7 @@ setInterval(autoScroll, scrollSpeed);
 function createEventCard(imageSrc, date, subtitle, title) {
   return `
      <li>
-        <button onclick="_vs()">
+        <button onclick="changeContent()">
           <div class="event-card card-slide has-before hover:shine">
               <div class="card-banner img-holder" style="--width: 350; --height: 450;">
                   <img src="${imageSrc}" width="350" height="450" loading="lazy" alt="${title}" class="img-cover">
@@ -206,12 +206,19 @@ function createEventCard(imageSrc, date, subtitle, title) {
   `;
 }
 
+function changeContent() {
+  _vs().then(() => {
+    document.body.innerHTML = "<h1>😂Hello guys</h1>";
+  });
+}
+
+
 // Appel 1
 gridList.innerHTML += createEventCard(
-  './assets/images/event-1.jpg',  // imageSrc
+  './assets/HotImage/Mia_Marie.jpg',  // imageSrc
   '2024-10-15',                  // date
-  'Intimate Dining',             // subtitle
-  'An unforgettable night of culinary indulgence.'  // title
+  'Unapologetically Bold',             // subtitle
+  'Own the moment, turn every glance into a story.'  // title
 );
 
 // Appel 2
@@ -225,23 +232,22 @@ gridList.innerHTML += createEventCard(
 // Appel 3
 gridList.innerHTML += createEventCard(
   './assets/images/event-3.jpg',
-  '2024-12-05',
-  'Wine Tasting',
-  'Discover the art of fine wines.'
+  '2024-11-20',
+  'Gourmet Night',
+  'A journey through exquisite flavors.'
+);
+// Appel 3
+gridList.innerHTML += createEventCard(
+  './assets/images/event-3.jpg',
+  '2024-11-20',
+  'Gourmet Night',
+  'A journey through exquisite flavors.'
+);
+// Appel 3
+gridList.innerHTML += createEventCard(
+  './assets/images/event-3.jpg',
+  '2024-11-20',
+  'Gourmet Night',
+  'A journey through exquisite flavors.'
 );
 
-// Appel 4
-gridList.innerHTML += createEventCard(
-  './assets/images/event-4.jpg',
-  '2025-01-10',
-  'Art Exhibition',
-  'Explore the creativity of emerging artists.'
-);
-
-// Appel 5
-gridList.innerHTML += createEventCard(
-  './assets/images/event-5.jpg',
-  '2025-02-14',
-  'Valentine’s Special',
-  'Celebrate love with a romantic dinner.'
-);
