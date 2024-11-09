@@ -169,54 +169,30 @@ window.addEventListener("mousemove", function (event) {
 
 });
 
-// Selecting gridList and setting scroll configurations
+
 const gridList = document.querySelector('.grid-list');
 const scrollSpeed = 50;
 const scrollStep = 1;
-gridList.innerHTML += gridList.innerHTML;
+
+gridList.innerHTML += gridList.innerHTML;  
 
 let scrollAmount = 0;
 let isScrolling = true;
 let isDragging = false;
 
-// Auto-scroll function
 function autoScroll() {
   if (isScrolling && !isDragging) {
     scrollAmount += scrollStep;
+    gridList.style.transform = `translateX(-${scrollAmount}px)`;
+    
     if (scrollAmount >= gridList.scrollWidth / 2) {
       scrollAmount = 0;
+      gridList.style.transform = `translateX(0px)`;
     }
-    gridList.style.transform = `translateX(-${scrollAmount}px)`;
   }
 }
 setInterval(autoScroll, scrollSpeed);
 
-// Drag-to-scroll feature
-gridList.addEventListener('mousedown', (event) => {
-  isScrolling = false; 
-  isDragging = true;
-  
-  let startX = event.clientX;
-  let startScroll = scrollAmount;
-
-  function onMouseMove(event) {
-    if (isDragging) {
-      let dx = event.clientX - startX;
-      scrollAmount = startScroll - dx;
-      gridList.style.transform = `translateX(-${scrollAmount}px)`;
-    }
-  }
-
-  function onMouseUp() {
-    isDragging = false;
-    isScrolling = true; 
-    gridList.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-  }
-
-  gridList.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-});
 
 document.getElementById('scroll-left').addEventListener('click', () => {
   scrollAmount -= 200;
