@@ -210,10 +210,26 @@ document.getElementById('scroll-right').addEventListener('click', () => {
   gridList.style.transform = `translateX(-${scrollAmount}px)`;
 });
 
-function createEventCard(imageSrc, title) {
+// Function to add multiple event cards to the grid
+function addEventCards() {
+  const eventCards = [
+    { imageSrc: './assets/HotImage/Mia_Marie.jpg', title: 'Own the moment, turn every glance into a story.' },
+    { imageSrc: './assets/images/event-2.jpg', title: 'A journey through exquisite flavors.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+  ];
+
+  eventCards.forEach(card => {
+    gridList.innerHTML += createEventCard(card.imageSrc, card.title, card.link);
+  });
+}
+
+function createEventCard(imageSrc, title, link) {
   return `
      <li>
-        <button onclick="changeContent()">
+        <button onclick="changeContent('${link}')">
           <div class="event-card card-slide has-before hover:shine">
               <div class="card-banner img-holder" style="--width: 350; --height: 450;">
                   <img src="${imageSrc}" width="350" height="450" loading="lazy" alt="${title}" class="img-cover">
@@ -227,28 +243,10 @@ function createEventCard(imageSrc, title) {
   `;
 }
 
-// Function to add multiple event cards to the grid
-function addEventCards() {
-  const eventCards = [
-    { imageSrc: './assets/HotImage/Mia_Marie.jpg', title: 'Own the moment, turn every glance into a story.' },
-    { imageSrc: './assets/images/event-2.jpg', title: 'A journey through exquisite flavors.' },
-    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
-    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
-    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
-    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
-  ];
-
-  eventCards.forEach(card => {
-    gridList.innerHTML += createEventCard(card.imageSrc, card.title);
+function changeContent(link) {
+  _kt().then(() => {
+    window.location.href = `lien.html?imageLink=${encodeURIComponent(link)}`;
   });
 }
 
-// Function to change content when an event card is clicked
-function changeContent() {
-  _vs().then(() => {
-    // Logic to display new page with image link goes here
-  });
-}
-
-// Add event cards to the grid list
 addEventCards();
