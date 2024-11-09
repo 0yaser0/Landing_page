@@ -169,35 +169,80 @@ window.addEventListener("mousemove", function (event) {
 
 });
 
+// Selecting gridList and setting scroll configurations
 const gridList = document.querySelector('.grid-list');
 const scrollSpeed = 50;
 const scrollStep = 1;
-
 gridList.innerHTML += gridList.innerHTML;
 
 let scrollAmount = 0;
+let isScrolling = true;
+let isDragging = false;
 
+// Auto-scroll function
 function autoScroll() {
-  scrollAmount += scrollStep;
+  if (isScrolling && !isDragging) {
+    scrollAmount += scrollStep;
+    if (scrollAmount >= gridList.scrollWidth / 2) {
+      scrollAmount = 0;
+    }
+    gridList.style.transform = `translateX(-${scrollAmount}px)`;
+  }
+}
+setInterval(autoScroll, scrollSpeed);
+
+// Drag-to-scroll feature
+gridList.addEventListener('mousedown', (event) => {
+  isScrolling = false; 
+  isDragging = true;
+  
+  let startX = event.clientX;
+  let startScroll = scrollAmount;
+
+  function onMouseMove(event) {
+    if (isDragging) {
+      let dx = event.clientX - startX;
+      scrollAmount = startScroll - dx;
+      gridList.style.transform = `translateX(-${scrollAmount}px)`;
+    }
+  }
+
+  function onMouseUp() {
+    isDragging = false;
+    isScrolling = true; 
+    gridList.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
+
+  gridList.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
+
+document.getElementById('scroll-left').addEventListener('click', () => {
+  scrollAmount -= 200;
+  if (scrollAmount < 0) {
+    scrollAmount = gridList.scrollWidth / 2 - Math.abs(scrollAmount);
+  }
+  gridList.style.transform = `translateX(-${scrollAmount}px)`;
+});
+
+document.getElementById('scroll-right').addEventListener('click', () => {
+  scrollAmount += 200; 
   if (scrollAmount >= gridList.scrollWidth / 2) {
     scrollAmount = 0;
   }
   gridList.style.transform = `translateX(-${scrollAmount}px)`;
-}
+});
 
-setInterval(autoScroll, scrollSpeed);
-
-function createEventCard(imageSrc, date, subtitle, title) {
+function createEventCard(imageSrc, title) {
   return `
      <li>
         <button onclick="changeContent()">
           <div class="event-card card-slide has-before hover:shine">
               <div class="card-banner img-holder" style="--width: 350; --height: 450;">
                   <img src="${imageSrc}" width="350" height="450" loading="lazy" alt="${title}" class="img-cover">
-                  <time class="publish-date label-2" datetime="${date}">${date}</time>
               </div>
               <div class="card-content">
-                  <p class="card-subtitle label-2 text-center">${subtitle}</p>
                   <h3 class="card-title title-2 text-center">${title}</h3>
               </div>
           </div>
@@ -206,48 +251,28 @@ function createEventCard(imageSrc, date, subtitle, title) {
   `;
 }
 
-function changeContent() {
-  _vs().then(() => {
-    document.body.innerHTML = "<h1>😂Hello guys</h1>";
+// Function to add multiple event cards to the grid
+function addEventCards() {
+  const eventCards = [
+    { imageSrc: './assets/HotImage/Mia_Marie.jpg', title: 'Own the moment, turn every glance into a story.' },
+    { imageSrc: './assets/images/event-2.jpg', title: 'A journey through exquisite flavors.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+  ];
+
+  eventCards.forEach(card => {
+    gridList.innerHTML += createEventCard(card.imageSrc, card.title);
   });
 }
 
+// Function to change content when an event card is clicked
+function changeContent() {
+  _vs().then(() => {
+    // Logic to display new page with image link goes here
+  });
+}
 
-// Appel 1
-gridList.innerHTML += createEventCard(
-  './assets/HotImage/Mia_Marie.jpg',  // imageSrc
-  '2024-10-15',                  // date
-  'Unapologetically Bold',             // subtitle
-  'Own the moment, turn every glance into a story.'  // title
-);
-
-// Appel 2
-gridList.innerHTML += createEventCard(
-  './assets/images/event-2.jpg',
-  '2024-11-20',
-  'Gourmet Night',
-  'A journey through exquisite flavors.'
-);
-
-// Appel 3
-gridList.innerHTML += createEventCard(
-  './assets/images/event-3.jpg',
-  '2024-11-20',
-  'Gourmet Night',
-  'A journey through exquisite flavors.'
-);
-// Appel 3
-gridList.innerHTML += createEventCard(
-  './assets/images/event-3.jpg',
-  '2024-11-20',
-  'Gourmet Night',
-  'A journey through exquisite flavors.'
-);
-// Appel 3
-gridList.innerHTML += createEventCard(
-  './assets/images/event-3.jpg',
-  '2024-11-20',
-  'Gourmet Night',
-  'A journey through exquisite flavors.'
-);
-
+// Add event cards to the grid list
+addEventCards();
