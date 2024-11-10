@@ -213,8 +213,10 @@ document.getElementById('scroll-right').addEventListener('click', () => {
 // Function to add multiple event cards to the grid
 function addEventCards() {
   const eventCards = [
-    { imageSrc: './assets/HotImage/Mia_Marie.jpg', title: 'Own the moment, turn every glance into a story.' },
+    { imageSrc: './assets/HotImage/Mia_Marie.jpg', title: 'Mia Marie', link: 'https://mega.nz/folder/ecxlQb5T#XUIPhxuEsQ_UTTY2xX83-A' },
     { imageSrc: './assets/images/event-2.jpg', title: 'A journey through exquisite flavors.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
+    { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
     { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
     { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
     { imageSrc: './assets/images/event-3.jpg', title: 'Experience the thrill of new discoveries.' },
